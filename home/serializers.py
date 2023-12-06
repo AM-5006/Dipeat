@@ -21,19 +21,6 @@ class LoginSerializer(serializers.Serializer):
     password = serializers.CharField(write_only=True)
 
 class SignUpSerializer(serializers.Serializer):
-    # username = serializers.CharField()
-    # password = serializers.CharField(write_only=True)
-    # email = serializers.EmailField()
-
-    # def validate_username(self, value):
-    #     if User.objects.filter(username=value).exists():
-    #         raise serializers.ValidationError('Username is already taken')
-    #     return value
-
-    # def create(self, validated_data):
-    #     user = User.objects.create_user(**validated_data)
-    #     return user
-    
     first_name = serializers.CharField()
     email = serializers.EmailField()
     password = serializers.CharField(write_only=True)
