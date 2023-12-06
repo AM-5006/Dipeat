@@ -41,42 +41,6 @@ class ProfileView(APIView):
         else:
             return Response(serializer.errors, status=400)
 
-# class LoginView(APIView):
-#     def post(self, request, *args, **kwargs):
-#         username = request.data.get('username')
-#         password = request.data.get('password')
-#         user = authenticate(request, username=username, password=password)
-
-#         if user:
-#             refresh = RefreshToken.for_user(user)
-#             data = {
-#                 'refresh': str(refresh),
-#                 'access': str(refresh.access_token),
-#             }
-#             return Response(data)
-#         else:
-#             return Response({'error': 'Invalid credentials'}, status=401)
-
-# class SignUpView(APIView):
-#     def post(self, request, *args, **kwargs):
-#         username = request.data.get('username')
-#         password = request.data.get('password')
-#         email = request.data.get('email')
-
-#         if not username or not password or not email:
-#             return Response({'error': 'Username, password, and email are required fields'}, status=400)
-
-#         if User.objects.filter(username=username).exists():
-#             return Response({'error': 'Username is already taken'}, status=400)
-
-#         user = User.objects.create_user(username=username, password=password, email=email)
-
-#         data = {
-#             'message': 'User created successfully',
-#         }
-#         return Response(data)
-
-
 class LoginView(APIView):
     serializer_class = LoginSerializer
 
