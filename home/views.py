@@ -3,11 +3,14 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.core.mail import EmailMultiAlternatives
 from django.utils.html import strip_tags
 from django.template.loader import render_to_string
+from django.shortcuts import render, HttpResponse, redirect
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 from .models import Profile
 from .serializers import ProfileSerializer, UserSerializer, LoginSerializer, SignUpSerializer
@@ -93,6 +96,7 @@ class LoginView(APIView):
                 'refresh': str(refresh),
                 'access': str(refresh.access_token),
             }
+            login(request, user)
             return Response(data)
         else:
             return Response({'error': 'Invalid credentials'}, status=401)
@@ -121,3 +125,7 @@ class SignUpView(APIView):
             'message': 'User created successfully. Check your mail for username',
         }
         return Response(data)
+
+@login_required
+def index(request):
+    return HttpResponse('User logged in: '+str(request.user))
